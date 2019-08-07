@@ -83,11 +83,11 @@ export default function Application(props) {
 
     let interview = '';
     if (appointment.interview) {
+      console.log(appointment.interview)
       interview = getInterview(state, appointment.interview);
     } else {
       interview = appointment.interview;
     }
-
     return (
       <Appointment
         key={appointment.id}
@@ -121,9 +121,11 @@ export default function Application(props) {
 
       </section>
       <section className="schedule">
-        {appointments.map((appointment) => {
-          return <Appointment key={appointment.id} id={appointment.id} time={appointment.time} interview={appointment.interview}/>
-        })}
+        {schedule
+        //   appointments.map((appointment) => {
+        //   return <Appointment key={appointment.id} id={appointment.id} time={appointment.time} interview={appointment.interview}/>
+        // })
+        }
       </section>
     </main>
   );
