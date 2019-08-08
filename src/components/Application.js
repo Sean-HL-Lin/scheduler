@@ -4,57 +4,16 @@ import DayList from "components/DayList"
 import Appointment from "components/Appointment/Appointment"
 import axios from "axios"
 import {getAppointmentsForDay, getInterview} from "helpers/selectors"
-
-
-// const appointments = [
-//   {
-//     id: 1,
-//     time: "12pm",
-//   },
-//   {
-//     id: 2,
-//     time: "1pm",
-//     interview: {
-//       student: "Lydia Miller-Jones",
-//       interviewer: {
-//         id: 1,
-//         name: "Sylvia Palmer",
-//         avatar: "https://i.imgur.com/LpaY82x.png",
-//       }
-//     }
-//   }
-// ];
-
-// const days = [
-//   {
-//     id: 1,
-//     name: "Monday",
-//     spots: 2,
-//   },
-//   {
-//     id: 2,
-//     name: "Tuesday",
-//     spots: 5,
-//   },
-//   {
-//     id: 3,
-//     name: "Wednesday",
-//     spots: 0,
-//   },
-// ];
+import {useVisualMode} from 'hooks/useVisualMode'
 
 
 export default function Application(props) {
-  // const [day, selectDay] = useState('Monday')
-  // const [days, setDays] = useState('')
-  // const [appointments, setAppointments] = useState({})
   const [state, setState] = useState({
     day: "Monday",
     days: [],
     appointments: {},
     interviewers: {}
   });
-
 
   useEffect(() => {
     Promise.all([
@@ -64,26 +23,16 @@ export default function Application(props) {
     ]
     ).then((all) => {
       setState(prev => ({...prev, days:all[0].data, appointments: all[1].data, interviewers: all[2].data}))
-      console.log(all[1].data)
-      console.log(all[2].data)
       
     })
-    // axios.get('/api/days').then((response) => {
-    //   setState(prev => ({...prev, days:response.data }))
-    // })
-    // axios.get('/api/appointments').then((response) => {
-    //   console.log(response.data)
-    // })
-
   }
   , [])
 
   const appointments = getAppointmentsForDay(state, state.day);
+  
   const schedule = appointments.map((appointment) => {
-
     let interview = '';
     if (appointment.interview) {
-      console.log(appointment.interview)
       interview = getInterview(state, appointment.interview);
     } else {
       interview = appointment.interview;
@@ -94,6 +43,7 @@ export default function Application(props) {
         id={appointment.id}
         time={appointment.time}
         interview={interview}
+
       />
     );
   });
@@ -121,11 +71,7 @@ export default function Application(props) {
 
       </section>
       <section className="schedule">
-        {schedule
-        //   appointments.map((appointment) => {
-        //   return <Appointment key={appointment.id} id={appointment.id} time={appointment.time} interview={appointment.interview}/>
-        // })
-        }
+        {schedule}
       </section>
     </main>
   );
