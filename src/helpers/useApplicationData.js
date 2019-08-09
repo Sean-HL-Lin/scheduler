@@ -1,7 +1,5 @@
-import React, {useState, useEffect, useReducer } from "react";
+import { useEffect, useReducer } from "react";
 import axios from "axios"
-import { render } from "@testing-library/react";
-import { func } from "prop-types";
 
 
 export function useApplicationData() {
@@ -32,6 +30,7 @@ const reducer = function(state, action) {
       
       return {...state, days:action.days}
     }
+
     case SET_APPLICATIONS: {
 
       return {...state, appointments:action.appointments}
@@ -42,6 +41,9 @@ const reducer = function(state, action) {
     }
     case INIT_DATA: {
       return {...state, days:action.days, appointments:action.appointments, interviewers:action.interviewers}
+    }
+    default : {
+      return state
     }
 
   }
@@ -70,7 +72,20 @@ useEffect(() => {
 }
 , [])
 
-console.log(state)
+for (let stateDay of state.days) {
+  const day = stateDay
+  let spots = 0;
+  for (let appId of day.appointments) {
+    if (!state.appointments[appId].interview) {
+      spots +=1
+    }
+  }
+
+  day.spots = spots
+}
+
+
+
 
 const bookInterview = function (id, interview) {
   return axios({
@@ -98,6 +113,8 @@ const bookInterview = function (id, interview) {
 
    })
   }
+
+
 
 const cancelInterview = function (id, interview) {
   return axios({
