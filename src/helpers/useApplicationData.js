@@ -1,17 +1,59 @@
-import React, {useState, useEffect } from "react";
+import React, {useState, useEffect, useReducer } from "react";
 import axios from "axios"
+import { render } from "@testing-library/react";
+import { func } from "prop-types";
 
 
 export function useApplicationData() {
 
 
 
-const [state, setState] = useState({
+// const [state, setState] = useState({
+//   day: "Monday",
+//   days: [],
+//   appointments: {},
+//   interviewers: {}
+// });
+
+const SET_DAY = "SET_DAY"
+const SET_DAYS = "SET_DAYS"
+const SET_APPLICATIONS = "SET_APPLICATIONS"
+const SET_INTERVIEWERS = "SET_INTERVIEWERS"
+const INIT_DATA = "INIT_DATA"
+
+const reducer = function(state, action) {
+  // type: "add", value: 3 }
+  switch(action.type) {
+    case SET_DAY: {
+
+      return {...state, day:action.day}
+    } 
+    case SET_DAYS: {
+      
+      return {...state, days:action.days}
+    }
+    case SET_APPLICATIONS: {
+
+      return {...state, appointments:action.appointments}
+    }
+    case SET_INTERVIEWERS: {
+
+      return  {...state, interviewers:action.interviewers}
+    }
+    case INIT_DATA: {
+      return {...state, days:action.days, appointments:action.appointments, interviewers:action.interviewers}
+    }
+
+  }
+
+}
+
+const [state, dispatch] = useReducer(reducer, {
   day: "Monday",
   days: [],
   appointments: {},
   interviewers: {}
-});
+})
 
 
 
@@ -22,11 +64,13 @@ useEffect(() => {
     Promise.resolve(axios.get(' /api/interviewers'))
   ]
   ).then((all) => {
-    setState(prev => ({...prev, days:all[0].data, appointments: all[1].data, interviewers: all[2].data}))
+    dispatch({type:"INIT_DATA", days:all[0].data, appointments: all[1].data, interviewers: all[2].data})
+    // setState(prev => ({...prev, days:all[0].data, appointments: all[1].data, interviewers: all[2].data}))
   })
 }
 , [])
 
+console.log(state)
 
 const bookInterview = function (id, interview) {
   return axios({
@@ -46,10 +90,12 @@ const bookInterview = function (id, interview) {
       [id]: appointment
     };
 
-    setState({
-      ...state,
-      appointments
-    });
+    dispatch({type: SET_APPLICATIONS, appointments:appointments})
+    // setState({
+    //   ...state,
+    //   appointments
+    // });
+
    })
   }
 
@@ -70,10 +116,11 @@ const cancelInterview = function (id, interview) {
       [id]: appointment
     };
 
-    setState({
-      ...state,
-      appointments
-    });
+    dispatch({type: SET_APPLICATIONS, appointments:appointments})
+    // setState({
+    //   ...state,
+    //   appointments
+    // });
 
    });
   }
@@ -98,16 +145,19 @@ const editInterview = function (id, interview) {
       [id]: appointment
     };
 
-    setState({
-      ...state,
-      appointments
-    });
+    dispatch({type: SET_APPLICATIONS, appointments:appointments})
+    // setState({
+    //   ...state,
+    //   appointments
+    // });
+
    });
   }
 
   return {
     state,
-    setState,
+    // setState,
+    dispatch,
     bookInterview,
     cancelInterview,
     editInterview

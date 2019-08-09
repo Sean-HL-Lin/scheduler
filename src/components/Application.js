@@ -108,7 +108,8 @@ export default function Application(props) {
 
   const {
     state,
-    setState,
+    // setState,
+    dispatch,
     bookInterview,
     cancelInterview,
     editInterview
@@ -116,6 +117,11 @@ export default function Application(props) {
   
 
   const appointments = getAppointmentsForDay(state, state.day);
+  console.log('appointment')
+  console.log(appointments)
+  console.log('**********************')
+  console.log(appointments.filter((app) => {return !app.interview}).length)
+
   const interviewers = getInterviewersForDay(state, state.day) ///
   const schedule = appointments.map((appointment) => {
     let interview = '';
@@ -150,7 +156,8 @@ export default function Application(props) {
             alt="Interview Scheduler"
           />
           <hr className="sidebar__separator sidebar--centered" />
-          <DayList days={state.days} day={state.day} setDay={(day) => {setState(prev => ({...prev, day}))}} />
+          {/* <DayList days={state.days} day={state.day} setDay={(day) => {setState(prev => ({...prev, day}))}} /> */}
+          <DayList days={state.days} day={state.day} setDay={(day) => { dispatch({type:"SET_DAY", day:day}) }} />
           <nav className="sidebar__menu" />
           <img
             className="sidebar__lhl sidebar--centered"
