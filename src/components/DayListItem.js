@@ -23,6 +23,7 @@ export default function DayListItem(props) {
     <div 
       className={dayListClass} 
       onClick={ props.setDay}
+      data-testid='day'
     >
       <h1>{props.name}</h1>
       <p>{remaining} remaining</p>

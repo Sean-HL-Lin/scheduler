@@ -4,8 +4,6 @@ import axios from "axios"
 
 export function useApplicationData() {
 
-
-
 // const [state, setState] = useState({
 //   day: "Monday",
 //   days: [],
@@ -43,7 +41,7 @@ const reducer = function(state, action) {
       return {...state, days:action.days, appointments:action.appointments, interviewers:action.interviewers}
     }
     default : {
-      return state
+      throw new Error('wrong type message')
     }
 
   }
@@ -63,9 +61,10 @@ useEffect(() => {
   Promise.all([
     Promise.resolve(axios.get('/api/days')),
     Promise.resolve(axios.get('/api/appointments')),
-    Promise.resolve(axios.get(' /api/interviewers'))
+    Promise.resolve(axios.get('/api/interviewers'))
   ]
   ).then((all) => {
+    // console.log(all)
     dispatch({type:"INIT_DATA", days:all[0].data, appointments: all[1].data, interviewers: all[2].data})
     // setState(prev => ({...prev, days:all[0].data, appointments: all[1].data, interviewers: all[2].data}))
   })
@@ -88,13 +87,8 @@ for (let stateDay of state.days) {
 
 
 const bookInterview = function (id, interview) {
-  return axios({
-    url: `api/appointments/${id}`,
-    method: "put",
-    data: {
-      interview:interview
-    }
-   }).then(() => {
+  return axios.put(
+    `api/appointments/${id}`,{interview}).then(() => {
     const appointment = {
       ...state.appointments[id],
       interview: { ...interview }
@@ -117,12 +111,7 @@ const bookInterview = function (id, interview) {
 
 
 const cancelInterview = function (id, interview) {
-  return axios({
-    url: `api/appointments/${id}`,
-    method: "delete",
-    data: {
-    }
-   }).then( () => {
+  return axios.delete(`api/appointments/${id}`).then( () => {
     const appointment = {
       ...state.appointments[id],
       interview: null

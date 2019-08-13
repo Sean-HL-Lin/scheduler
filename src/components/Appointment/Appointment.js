@@ -46,14 +46,17 @@ export default function Appointment(props) {
 
   const mode = useVisualMode(props.interview ? SHOW: EMPTY)
 
-  const onSave = function(name, interviewer, id) {
+  const onSave = function(name, interviewer) {
     if (name && interviewer) {
       const interview = {
         student:name,
         interviewer
       }
       mode.transition("SAVING")
-      bookInterview(id, interview).then(() => {mode.transition("SHOW")}).catch(error => mode.transition(ERROR_SAVING, true));
+      bookInterview(props.id, interview).then(() => {mode.transition("SHOW")}).catch(error => {
+        console.log(error)
+        mode.transition(ERROR_SAVING, true)
+      });
     }
   }
   
@@ -66,8 +69,7 @@ export default function Appointment(props) {
     props.cancelInterview(props.id)
       .then(() => {
       mode.transition("EMPTY")
-    })
-      .catch(error => mode.transition(ERROR_DELETE, true));
+    }).catch(error => mode.transition(ERROR_DELETE, true));
   }
 
   const onEdit = function () {
@@ -75,7 +77,10 @@ export default function Appointment(props) {
     // editInterview
   }
   return (
-    <>
+    <article
+     data-testid="appointment"
+    >
+
     <Header time={props.time} />
     {mode.mode === EMPTY && <Empty onAdd={ () => {
       mode.transition('CREATE')
@@ -101,7 +106,6 @@ export default function Appointment(props) {
 
     {mode.mode === CONFIRM && (
       <Confirm 
-        message={"Are you sure you would like to delete?"}
         toDelete={toDelete}
         toCancelDelete={() => {
           mode.transition("SHOW")
@@ -122,6 +126,6 @@ export default function Appointment(props) {
         onClose={mode.back}
       />
     )}
-    </>
+    </article>
   )
 }
