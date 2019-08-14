@@ -30,4 +30,4 @@ npm run storybook
 
 ## Screenshots
 
-!["Scheduler with defferent modes"]()
+!["Scheduler with defferent modes"](https://github.com/Sean-HL-Lin/scheduler/blob/master/docs/modes.png)
