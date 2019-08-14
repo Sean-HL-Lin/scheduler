@@ -7,7 +7,7 @@ export default function Form(props) {
   
   const [name, setName] = useState(props.name || "");
   const [interviewer, setInterviewer] = useState(props.interviewer || null);
-  const [error, setError] = useState('')
+  const [error, setError] = useState('');
 
   const validate = function () {
     if (name === '') {
@@ -48,7 +48,6 @@ export default function Form(props) {
           <Button confirm onClick={(event) => 
           {
             validate()
-            // props.onSave(name,interviewer, props.id)
           }}>Save</Button>
         </section>
       </section>

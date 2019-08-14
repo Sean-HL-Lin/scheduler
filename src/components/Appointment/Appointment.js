@@ -23,26 +23,6 @@ export default function Appointment(props) {
 
   const bookInterview = props.bookInterview;
 
-  // const mode = useVisualMode("SHOW")
-  // console.log('props.interview')
-  // console.log(props.interview)
-  // if (!props.interview) {
-  //   mode.transition("EMPTY")
-  // }
-  
-  // console.log(props.interview)
-  
-  // const mode = useVisualMode("SHOW")
-
-
-  // useEffect(() => {
-
-  //     console.log(mode)
-  //     mode.transition('EMPTY31323')
-  //     console.log(mode)
-    
-  // }, [])
-
 
   const mode = useVisualMode(props.interview ? SHOW: EMPTY)
 

@@ -13,7 +13,6 @@ export default function Application(props) {
 
   const {
     state,
-    // setState,
     dispatch,
     bookInterview,
     cancelInterview,
@@ -57,7 +56,6 @@ export default function Application(props) {
             alt="Interview Scheduler"
           />
           <hr className="sidebar__separator sidebar--centered" />
-          {/* <DayList days={state.days} day={state.day} setDay={(day) => {setState(prev => ({...prev, day}))}} /> */}
           <DayList days={state.days} day={state.day} setDay={(day) => { dispatch({type:"SET_DAY", day:day}) }} />
           <nav className="sidebar__menu" />
           <img

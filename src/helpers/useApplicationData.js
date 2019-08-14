@@ -86,6 +86,7 @@ for (let stateDay of state.days) {
 
 
 
+
 const bookInterview = function (id, interview) {
   return axios.put(
     `api/appointments/${id}`,{interview}).then(() => {

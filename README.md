@@ -1,4 +1,9 @@
 # Interview Scheduler
+This application is built with react and tested with Jest, Storybook and Cypress.
+
+To run the application properly,please also clone and run the server repository from
+https://github.com/Sean-HL-Lin/scheduler-api
+
 
 ## Setup
 
@@ -21,3 +26,8 @@ npm test
 ```sh
 npm run storybook
 ```
+
+
+## Screenshots
+
+!["Scheduler with defferent modes"]()
