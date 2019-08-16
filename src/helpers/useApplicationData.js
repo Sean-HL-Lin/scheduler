@@ -61,7 +61,7 @@ useEffect(() => {
   Promise.all([
     Promise.resolve(axios.get('/api/days')),
     Promise.resolve(axios.get('/api/appointments')),
-    Promise.resolve(axios.get('/api/interviewers'))
+    Promise.resolve(axios.get('/api/interviewers'+))
   ]
   ).then((all) => {
     // console.log(all)
@@ -70,6 +70,9 @@ useEffect(() => {
   })
 }
 , [])
+
+
+
 
 for (let stateDay of state.days) {
   const day = stateDay
@@ -108,7 +111,6 @@ const bookInterview = function (id, interview) {
 
    })
   }
-
 
 
 const cancelInterview = function (id, interview) {
