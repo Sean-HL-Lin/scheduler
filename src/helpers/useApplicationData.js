@@ -61,7 +61,7 @@ useEffect(() => {
   Promise.all([
     Promise.resolve(axios.get('/api/days')),
     Promise.resolve(axios.get('/api/appointments')),
-    Promise.resolve(axios.get('/api/interviewers'+))
+    Promise.resolve(axios.get('/api/interviewers'))
   ]
   ).then((all) => {
     // console.log(all)
