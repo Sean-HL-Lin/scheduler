@@ -72,7 +72,7 @@ export default function Appointment(props) {
     {mode.mode === CREATE && (
       <Form interviewers={props.interviewers} 
         onCancel={ () => {
-          mode.transition('EMPTY')
+          mode.back()
         }}
         onSave={onSave}
         id={props.id}
