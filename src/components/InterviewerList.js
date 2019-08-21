@@ -10,12 +10,6 @@ InterviewerList.propTypes = {
 
 
 export default function InterviewerList(props) {
-  // const [targetPerson, setInterviewer] = useState("")
-  // let targetPerson='';
-  // if (props.interviewer) {
-  //   targetPerson = props.interviewers[props.interviewer].name
-  // }
-
 
   return (
     <section className="interviewers">

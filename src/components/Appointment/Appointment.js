@@ -54,7 +54,6 @@ export default function Appointment(props) {
 
   const onEdit = function () {
     mode.transition("CREATE")
-    // editInterview
   }
   return (
     <article
