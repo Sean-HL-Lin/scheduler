@@ -2,7 +2,7 @@
 
 
 
-
+// get appointments based on day
 export function getAppointmentsForDay(state, day) {
   let appointmentArray = '';
   let result = []
@@ -17,7 +17,7 @@ export function getAppointmentsForDay(state, day) {
   return result
 }
 
-
+//get detailed interviewer informations
 export function getInterview(state, interview) {
 
   const interviewerId = interview.interviewer
@@ -27,7 +27,7 @@ export function getInterview(state, interview) {
   return resultInterview 
 }
 
-
+// get interviewers based on day
 export function getInterviewersForDay(state, day) {
   let result = [];
   for (let targetDay of state.days) {

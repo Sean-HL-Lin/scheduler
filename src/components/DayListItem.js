@@ -5,11 +5,13 @@ import "components/DayListItem.scss";
 import classnames from "classnames";
 
 export default function DayListItem(props) {
+  // apply class conditionally
   const dayListClass = classnames('day-list__item', {
     'day-list__item--selected' : props.selected,
     'day-list__item--full' : (props.spots === 0)
   })
 
+  // render right text for remaining spaces
   let remaining = ''
   if (props.spots === 0) {
     remaining = 'no spots'

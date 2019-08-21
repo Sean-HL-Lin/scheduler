@@ -6,7 +6,10 @@ export function useVisualMode(targetMode) {
   const [mode, setMode] = useState( {currentMode:targetMode, history:[targetMode]} )
 
   return {
+    // get current mode 
     mode: mode.currentMode,
+
+    // transfer mode
     transition: (newMode, boo = false) => {
       setMode((prev) => {
 
@@ -21,6 +24,7 @@ export function useVisualMode(targetMode) {
       })
     },
 
+    // swith back to previous mode 
     back: () => {
       setMode((prev) => {
         let newHistory = [...prev.history]

@@ -4,6 +4,8 @@ import "components/InterviewerListItem.scss";
 
 
 export default function InterviewerListItem(props) {
+
+  //apply classes conditionally
   const classes = classnames("interviewers__item" , {
     "interviewers__item--selected" : props.selected
   })

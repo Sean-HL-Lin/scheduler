@@ -23,9 +23,9 @@ export default function Appointment(props) {
 
   const bookInterview = props.bookInterview;
 
-
   const mode = useVisualMode(props.interview ? SHOW: EMPTY)
 
+  //save data to state and sql database
   const onSave = function(name, interviewer) {
     if (name && interviewer) {
       const interview = {
@@ -40,10 +40,12 @@ export default function Appointment(props) {
     }
   }
   
+  //switch to confirm mode before delete
   const onDelete = function () {
     mode.transition(CONFIRM)
   }
 
+  // delete data from state and sql database
   const toDelete = function () {
     mode.transition("SAVING")
     props.cancelInterview(props.id)
@@ -52,6 +54,7 @@ export default function Appointment(props) {
     }).catch(error => mode.transition(ERROR_DELETE, true));
   }
 
+  //switch to form mode 
   const onEdit = function () {
     mode.transition("CREATE")
   }

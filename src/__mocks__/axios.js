@@ -1,4 +1,6 @@
 const fixtures = {
+
+  // mock database 
   days: [
     {
       id: 1,
@@ -54,7 +56,10 @@ const fixtures = {
 };
 
 export default {
+  //mock defaults url setting
   defaults: { baseURL: "" },
+
+  //mock requests 
   get: jest.fn(url => {
     if (url === "/api/days") {
       return Promise.resolve({

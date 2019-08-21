@@ -4,12 +4,6 @@ import axios from "axios"
 
 export function useApplicationData() {
 
-// const [state, setState] = useState({
-//   day: "Monday",
-//   days: [],
-//   appointments: {},
-//   interviewers: {}
-// });
 
 const SET_DAY = "SET_DAY"
 const SET_DAYS = "SET_DAYS"
@@ -17,6 +11,7 @@ const SET_APPLICATIONS = "SET_APPLICATIONS"
 const SET_INTERVIEWERS = "SET_INTERVIEWERS"
 const INIT_DATA = "INIT_DATA"
 
+// create reducer
 const reducer = function(state, action) {
   // type: "add", value: 3 }
   switch(action.type) {
@@ -48,6 +43,7 @@ const reducer = function(state, action) {
 
 }
 
+
 const [state, dispatch] = useReducer(reducer, {
   day: "Monday",
   days: [],
@@ -57,6 +53,7 @@ const [state, dispatch] = useReducer(reducer, {
 
 
 
+//fetching data from database
 useEffect(() => {
   Promise.all([
     Promise.resolve(axios.get('/api/days')),
@@ -64,16 +61,14 @@ useEffect(() => {
     Promise.resolve(axios.get('/api/interviewers'))
   ]
   ).then((all) => {
-    // console.log(all)
     dispatch({type:"INIT_DATA", days:all[0].data, appointments: all[1].data, interviewers: all[2].data})
-    // setState(prev => ({...prev, days:all[0].data, appointments: all[1].data, interviewers: all[2].data}))
   })
 }
 , [])
 
 
 
-
+//update and correct spots for each day
 for (let stateDay of state.days) {
   const day = stateDay
   let spots = 0;
@@ -82,14 +77,13 @@ for (let stateDay of state.days) {
       spots +=1
     }
   }
-
   day.spots = spots
 }
 
 
 
 
-
+//add new interview into database and state with 
 const bookInterview = function (id, interview) {
   return axios.put(
     `api/appointments/${id}`,{interview}).then(() => {
@@ -112,7 +106,7 @@ const bookInterview = function (id, interview) {
    })
   }
 
-
+//delete interview from database and state with 
 const cancelInterview = function (id, interview) {
   return axios.delete(`api/appointments/${id}`).then( () => {
     const appointment = {
@@ -134,7 +128,7 @@ const cancelInterview = function (id, interview) {
    });
   }
 
-
+// edit existing interview then update database and state
 const editInterview = function (id, interview) {
 
   return axios({
