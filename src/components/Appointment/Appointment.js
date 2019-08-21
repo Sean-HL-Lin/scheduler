@@ -79,7 +79,7 @@ export default function Appointment(props) {
         onSave={onSave}
         id={props.id}
         name={props.interview ? props.interview.student : null}
-        interviewer={props.interview ? props.interview.interviewer : null}
+        interviewer={props.interview ? props.interview.interviewer.id : null}
         />
     )}
     {mode.mode === SAVING && (
